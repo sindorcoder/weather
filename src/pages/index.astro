@@ -1,11 +1,24 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import logo from "../../public/logo.svg";
+import Sidebar from "../components/Sidebar.tsx";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+    <div class="w-full max-w-[1240px] p-4 mx-auto">
+        <header>
+          <img
+            src={logo.src}
+            width="90"
+            loading="lazy"
+            height="90"
+            alt="Site logo"
+          />
+        </header>
+  
+        <div class="relative min-h-screen">
+          <Sidebar client:load />
+        </div>
+      </div>
 </Layout>

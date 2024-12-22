@@ -1,11 +1,19 @@
+---
+import bgWeather from "../images/bg-weather.png";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>Weather</title>
   </head>
-  <body> </body>
+  <body
+    style={`background-image: url(${bgWeather.src}); background-size: cover; backround-repeat: no-repeat; overflow: hidden;`}
+  >
+    <slot />
+  </body>
 </html>

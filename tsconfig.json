@@ -2,7 +2,7 @@
   "extends": "./node_modules/astro/tsconfigs/strict",
   "include": [
     ".astro/types.d.ts",
-    "**/*"
+    "src/**/*"
   ],
   "exclude": [
     "dist"
