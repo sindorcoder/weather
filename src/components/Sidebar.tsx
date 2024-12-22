@@ -1,15 +1,11 @@
 import { BiSearchAlt } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchData } from "../utils";
 
-const Sidebar = () => {
-  const [text, setText] = useState("london");
-  const fetchData = async (text: string) => {
-    const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=f74f685d0d894b17bdf92931241912&q=${text.toLowerCase()}&aqi=no`
-    );
-    const data = await response.json();
-  };
-  fetchData(text);
+const Sidebar = ({setText, data}: {setText: (text: string) => void, data: any}) => {
+
+  console.log(data);
+
   return (
     <section className="absolute -top-16 -right-[170px] p-4 min-h-screen w-full max-w-[700px] bg-gray-800 bg-opacity-50 backdrop-blur-sm">
       <nav className="px-5 h-full">

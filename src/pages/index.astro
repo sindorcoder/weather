@@ -1,24 +1,8 @@
 ---
+import App from "../components/App";
 import Layout from "../layouts/Layout.astro";
-import logo from "../../public/logo.svg";
-import Sidebar from "../components/Sidebar.tsx";
-
 ---
 
 <Layout>
-    <div class="w-full max-w-[1240px] p-4 mx-auto">
-        <header>
-          <img
-            src={logo.src}
-            width="90"
-            loading="lazy"
-            height="90"
-            alt="Site logo"
-          />
-        </header>
-  
-        <div class="relative min-h-screen">
-          <Sidebar client:load />
-        </div>
-      </div>
+  <App client:load/>
 </Layout>
