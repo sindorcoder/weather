@@ -5,18 +5,27 @@ import {
   Eye,
   Gauge,
   Leaf,
+  MoonIcon,
   Search,
+  SunIcon,
   WindArrowDown,
 } from "lucide-react";
 import { Droplets } from "lucide-react";
 const Main = ({
   setText,
   data,
+  setTheme
 }: {
   setText: React.Dispatch<React.SetStateAction<string>>;
   data: any;
+  setTheme: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  console.log(data);
+  const handleSubmit = (value: any) => {
+    if (value._reactName === "onKeyDown" && value.key === "Enter") {
+      setText(value.target.value);
+      localStorage.setItem("location", value.target.value);
+    }
+  };
   return (
     <>
       <section className="w-full mt-[20px] rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white">
@@ -29,72 +38,95 @@ const Main = ({
             alt="Site logo"
           />
           <div className="flex items-center w-full justify-end gap-10">
-            <div className="flex items-center w-[30%] max-w-[400px] justify-between  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] bg-gray-800 ">
+            <div className="flex items-center justify-between bg-transparent  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] md:bg-gray-800 ">
               <input
-                className="bg-transparent outline-none border-none capitalize text-white px-4 w-full py-2"
+                className="bg-transparent hidden md:block outline-none border-none capitalize text-white px-4 w-full py-2"
                 type="text"
                 id="search"
                 placeholder="Search City for Weather"
+                onKeyDown={(e: any) => handleSubmit(e)}
               />
               <label
                 htmlFor="search"
-                className="bg-gray-900 flex items-center justify-center w-[60px] h-[45px] cursor-pointer"
+                className="md:bg-gray-900 flex items-center justify-center w-full  md:w-[60px] !m-0 h-[45px] cursor-pointer"
               >
                 <Search size={"80%"} color="white" />
               </label>
             </div>
-            <div className="theme  w-full max-w-[120px] h-[45px] bg-black"></div>
+            <div className="flex items-center justify-between  w-full max-w-[120px] h-[45px] bg-gray-800 rounded-lg overflow-hidden">
+              <button className="w-[50%] border-none outline-none h-full cursor-pointer flex items-center justify-center">
+                <SunIcon size={30} color="white" />
+              </button>
+              <div className="h-full w-[2px] bg-gray-950"></div>
+              <button className="w-[50%] h-full outline-none border-none flex cursor-pointer items-center justify-center ">
+                <MoonIcon size={30} color="white" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-start mt-[30px] justify-between">
+        <div className="flex flex-col items-center md:items-start md:flex-row mt-[30px] justify-between">
           <div className="flex flex-col w-[50%] items-center">
             <span className="text-[45px] text-black -tracking-tighter">
-              {data && data.location.name}
+              {(data && data.location?.name) || "Address Not Found!"}
             </span>
             <span className="text-[18px] leading-8">
-              {data && data.location.localtime.split(" ")[0]}
+              {(data && data.location?.localtime.split(" ")[0]) ||
+                "Address Not Found!"}
             </span>
             <span className="text-[22px] leading-10">
-              {data && data.location.localtime.split(" ")[1]}
+              {(data && data.location?.localtime.split(" ")[1]) ||
+                "Address Not Found!"}
             </span>
             <span className="text-[70px] my-[34px] tracking-widest">
-              {data && data.current.temp_c + "°"}
+              {(data && data.current?.temp_c + "°") || "Address Not Found!"}
             </span>
             <span className="flex items-center text-[24px] tracking-wider gap-5">
-              <img src={data && data.current.condition.icon} alt="" />{" "}
-              {data && data.current.condition.text}
+              <img src={data && data.current?.condition.icon} alt="" />
+              {(data && data.current?.condition.text) || "Address Not Found!"}
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-[50%]">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-full md:w-[50%]">
             <Card
-              data={data && data.current.humidity + "%"}
+              data={
+                (data && data.current?.humidity + "%") || "Address Not Found!"
+              }
               title={"Humidity"}
               icon={<Droplets size={50} />}
             />
             <Card
               title={"Pressure"}
-              data={data && data.current.pressure_mb}
+              data={(data && data.current?.pressure_mb) || "Address Not Found!"}
               icon={<Gauge size={50} />}
             />
             <Card
               title={"Gust"}
-              data={data && data.current.gust_kph + " kph"}
+              data={
+                (data && data.current?.gust_kph + " kph") ||
+                "Address Not Found!"
+              }
               icon={<WindArrowDown size={50} />}
             />
             <Card
               title={"Vis"}
-              data={data && data.current.vis_km + " km"}
+              data={
+                (data && data.current?.vis_km + " km") || "Address Not Found!"
+              }
               icon={<Eye size={50} />}
             />
             <Card
               title={"Precip"}
-              data={data && data.current.precip_in + "%"}
+              data={
+                (data && data.current?.precip_in + "%") || "Address Not Found!"
+              }
               icon={<CloudRainWind size={50} />}
             />
             <Card
               title={"Dew"}
-              data={data && data.current.dewpoint_c + " %"}
+              data={
+                (data && data.current?.dewpoint_c + " %") ||
+                "Address Not Found!"
+              }
               icon={<Leaf size={50} />}
             />
           </div>
