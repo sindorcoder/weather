@@ -6,7 +6,7 @@ const Card = ({data, title, icon}: any) => {
       <span className="text-[50px] mx-auto">
         {icon}
       </span>
-      <span className="text-[28px] leading-8 tracking-wider">{data}%</span>
+      <span className="text-[28px] leading-8 tracking-wider">{data}</span>
     </div>
   )
 }

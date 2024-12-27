@@ -1,8 +1,14 @@
-import { BiSearchAlt } from "react-icons/bi";
 import logo from "../../public/logo.svg";
 import Card from "./Card";
-import { WiHumidity } from "react-icons/wi";
-
+import {
+  CloudRainWind,
+  Eye,
+  Gauge,
+  Leaf,
+  Search,
+  WindArrowDown,
+} from "lucide-react";
+import { Droplets } from "lucide-react";
 const Main = ({
   setText,
   data,
@@ -10,7 +16,7 @@ const Main = ({
   setText: React.Dispatch<React.SetStateAction<string>>;
   data: any;
 }) => {
-  // console.log(data.current.humidity)
+  console.log(data);
   return (
     <>
       <section className="w-full mt-[20px] rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white">
@@ -32,9 +38,9 @@ const Main = ({
               />
               <label
                 htmlFor="search"
-                className="bg-gray-900 w-[60px] h-[45px] cursor-pointer"
+                className="bg-gray-900 flex items-center justify-center w-[60px] h-[45px] cursor-pointer"
               >
-                <BiSearchAlt size={"100%"} color="white" />
+                <Search size={"80%"} color="white" />
               </label>
             </div>
             <div className="theme  w-full max-w-[120px] h-[45px] bg-black"></div>
@@ -45,15 +51,35 @@ const Main = ({
           <div></div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-[50%]">
             <Card
-              data={data && data.current.humidity}
+              data={data && data.current.humidity + "%"}
               title={"Humidity"}
-              icon={<WiHumidity  />}
+              icon={<Droplets size={50} />}
             />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card
+              title={"Pressure"}
+              data={data && data.current.pressure_mb}
+              icon={<Gauge size={50} />}
+            />
+            <Card
+              title={"Gust"}
+              data={data && data.current.gust_kph + " kph"}
+              icon={<WindArrowDown size={50} />}
+            />
+            <Card
+              title={"Vis"}
+              data={data && data.current.vis_km + " km"}
+              icon={<Eye size={50} />}
+            />
+            <Card
+              title={"Precip"}
+              data={data && data.current.precip_in + "%"}
+              icon={<CloudRainWind size={50} />}
+            />
+            <Card
+              title={"Dew"}
+              data={data && data.current.dewpoint_c + " %"}
+              icon={<Leaf size={50} />}
+            />
           </div>
         </div>
       </section>
