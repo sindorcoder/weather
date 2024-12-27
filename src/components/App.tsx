@@ -3,7 +3,7 @@ import { fetchData } from "../utils";
 import Main from "./Main";
 
 const App = () => {
-  const [text, setText] = useState("london");
+  const [text, setText] = useState("Samarkand");
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -12,12 +12,9 @@ const App = () => {
 
   return (
     <div className="w-full max-w-[1240px] p-4 mx-auto">
-      <header>
-       
-      </header>
-        <main className="w-full">
-            <Main setText={setText} data={data}/>
-        </main>
+      <main className="w-full">
+        <Main setText={setText} data={data} />
+      </main>
     </div>
   );
 };

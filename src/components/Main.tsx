@@ -47,8 +47,25 @@ const Main = ({
           </div>
         </div>
 
-        <div className="flex items-center mt-[30px] justify-between">
-          <div></div>
+        <div className="flex items-start mt-[30px] justify-between">
+          <div className="flex flex-col w-[50%] items-center">
+            <span className="text-[45px] text-black -tracking-tighter">
+              {data && data.location.name}
+            </span>
+            <span className="text-[18px] leading-8">
+              {data && data.location.localtime.split(" ")[0]}
+            </span>
+            <span className="text-[22px] leading-10">
+              {data && data.location.localtime.split(" ")[1]}
+            </span>
+            <span className="text-[70px] my-[34px] tracking-widest">
+              {data && data.current.temp_c + "°"}
+            </span>
+            <span className="flex items-center text-[24px] tracking-wider gap-5">
+              <img src={data && data.current.condition.icon} alt="" />{" "}
+              {data && data.current.condition.text}
+            </span>
+          </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-[50%]">
             <Card
               data={data && data.current.humidity + "%"}
