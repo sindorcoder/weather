@@ -140,7 +140,7 @@ const Main = ({
         </div>
 
         <div className="my-[50px]">
-          <div className="flex items-center gap-4">
+          <div className="flex mb-[25px] items-center gap-4">
             <span className="text-[30px] capitalize font-bold">Forecast :</span>
             <div className="flex items-center gap-5">
               <span className="text-[17px] border-b-2 cursor-pointer font-semibold">For 24 Hours</span>
