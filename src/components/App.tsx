@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
-import { fetchData } from "../utils";
+import { fetchData, fetchLocation } from "../utils";
 import Main from "./Main";
 
 const App = () => {
-  const [text, setText] = useState("Samarkand");
+  const [text, setText] = useState("London");
   const [data, setData] = useState<any>(null);
+  const [locationData, setLocationData] = useState<any>(null);
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const title = localStorage.getItem("location") || "Samarkand";
+    const title = localStorage.getItem("location") || "London";
     setText(title);
   }, []);
 
   useEffect(() => {
     fetchData(text).then((data) => setData(data));
+    fetchLocation(text).then((data) => setLocationData(data));
   }, [text]);
 
   return (
     <div className="w-full max-w-[1240px] p-4 mx-auto">
       <main className="w-full">
-        <Main setText={setText} data={data} setTheme={setTheme} />
+        <Main
+          setText={setText}
+          locationData={locationData}
+          data={data}
+          setTheme={setTheme}
+        />
       </main>
     </div>
   );

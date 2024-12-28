@@ -11,19 +11,25 @@ import {
   WindArrowDown,
 } from "lucide-react";
 import { Droplets } from "lucide-react";
+import CarouselComp from "./Carousel";
 const Main = ({
   setText,
   data,
-  setTheme
+  setTheme,
+  locationData
 }: {
   setText: React.Dispatch<React.SetStateAction<string>>;
   data: any;
+  locationData: any;
   setTheme: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const handleSubmit = (value: any) => {
     if (value._reactName === "onKeyDown" && value.key === "Enter") {
       setText(value.target.value);
       localStorage.setItem("location", value.target.value);
+    }
+    if (value._reactName === "onKeyDown" && value.key === "Enter") {
+      value.target.value = "";
     }
   };
   return (
@@ -40,7 +46,7 @@ const Main = ({
           <div className="flex items-center w-full justify-end gap-10">
             <div className="flex items-center justify-between bg-transparent  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] md:bg-gray-800 ">
               <input
-                className="bg-transparent hidden md:block outline-none border-none capitalize text-white px-4 w-full py-2"
+                className="bg-transparent hidden md:block outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
                 type="text"
                 id="search"
                 placeholder="Search City for Weather"
@@ -66,6 +72,7 @@ const Main = ({
         </div>
 
         <div className="flex flex-col items-center md:items-start md:flex-row mt-[30px] justify-between">
+
           <div className="flex flex-col w-[50%] items-center">
             <span className="text-[45px] text-black -tracking-tighter">
               {(data && data.location?.name) || "Address Not Found!"}
@@ -82,7 +89,7 @@ const Main = ({
               {(data && data.current?.temp_c + "°") || "Address Not Found!"}
             </span>
             <span className="flex items-center text-[24px] tracking-wider gap-5">
-              <img src={data && data.current?.condition.icon} alt="" />
+              <img src={data && data.current?.condition.icon} alt="icon weather" />
               {(data && data.current?.condition.text) || "Address Not Found!"}
             </span>
           </div>
@@ -130,6 +137,17 @@ const Main = ({
               icon={<Leaf size={50} />}
             />
           </div>
+        </div>
+
+        <div className="my-[50px]">
+          <div className="flex items-center gap-4">
+            <span className="text-[30px] capitalize font-bold">Forecast :</span>
+            <div className="flex items-center gap-5">
+              <span className="text-[17px] border-b-2 cursor-pointer font-semibold">For 24 Hours</span>
+              <span className="text-[17px] border-b-2 cursor-pointer font-semibold">For 5 Days</span>
+            </div>
+          </div>
+          <CarouselComp locationData={locationData && locationData?.forecast?.forecastday} />
         </div>
       </section>
     </>
