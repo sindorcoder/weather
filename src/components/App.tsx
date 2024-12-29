@@ -5,6 +5,7 @@ import Main from "./Main";
 const App = () => {
   const [text, setText] = useState("London");
   const [data, setData] = useState<any>(null);
+  const [day, setDay] = useState<number>(1);
   const [locationData, setLocationData] = useState<any>(null);
   const [theme, setTheme] = useState("light");
 
@@ -15,8 +16,8 @@ const App = () => {
 
   useEffect(() => {
     fetchData(text).then((data) => setData(data));
-    fetchLocation(text).then((data) => setLocationData(data));
-  }, [text]);
+    fetchLocation(text, day).then((data) => setLocationData(data));
+  }, [text, day]);
 
   return (
     <div className="w-full max-w-[1240px] p-4 mx-auto">
@@ -26,6 +27,8 @@ const App = () => {
           locationData={locationData}
           data={data}
           setTheme={setTheme}
+          day={day}
+          setDay={setDay}
         />
       </main>
     </div>

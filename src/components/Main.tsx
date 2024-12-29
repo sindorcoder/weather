@@ -12,17 +12,23 @@ import {
 } from "lucide-react";
 import { Droplets } from "lucide-react";
 import CarouselComp from "./Carousel";
+import React, { useEffect, useState } from "react";
 const Main = ({
   setText,
   data,
   setTheme,
-  locationData
+  locationData,
+  setDay,
+  day,
 }: {
   setText: React.Dispatch<React.SetStateAction<string>>;
   data: any;
   locationData: any;
   setTheme: React.Dispatch<React.SetStateAction<string>>;
+  setDay: React.Dispatch<React.SetStateAction<number>>;
+  day: number;
 }) => {
+  const [daysFive, setDaysFive] = React.useState(false);
   const handleSubmit = (value: any) => {
     if (value._reactName === "onKeyDown" && value.key === "Enter") {
       setText(value.target.value);
@@ -32,6 +38,15 @@ const Main = ({
       value.target.value = "";
     }
   };
+
+  useEffect(() => {
+    if (daysFive) {
+      setDay(7);
+    } else {
+      setDay(1);
+    }
+  }, [daysFive, day]);
+
   return (
     <>
       <section className="w-full mt-[20px] rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white">
@@ -72,8 +87,8 @@ const Main = ({
         </div>
 
         <div className="flex flex-col items-center md:items-start md:flex-row mt-[30px] justify-between">
-
           <div className="flex flex-col w-[50%] items-center">
+
             <span className="text-[45px] text-black -tracking-tighter">
               {(data && data.location?.name) || "Address Not Found!"}
             </span>
@@ -89,7 +104,11 @@ const Main = ({
               {(data && data.current?.temp_c + "°") || "Address Not Found!"}
             </span>
             <span className="flex items-center text-[24px] tracking-wider gap-5">
-              <img src={data && data.current?.condition.icon} alt="icon weather" />
+              <img
+                loading="lazy"
+                src={data && data.current?.condition.icon}
+                alt="icon weather"
+              />
               {(data && data.current?.condition.text) || "Address Not Found!"}
             </span>
           </div>
@@ -141,13 +160,25 @@ const Main = ({
 
         <div className="my-[50px]">
           <div className="flex mb-[25px] items-center gap-4">
-            <span className="text-[30px] capitalize font-bold">Forecast :</span>
+            <span className="text-[16px] sm:text-[30px] capitalize font-bold">Forecast :</span>
             <div className="flex items-center gap-5">
-              <span className="text-[17px] border-b-2 cursor-pointer font-semibold">For 24 Hours</span>
-              <span className="text-[17px] border-b-2 cursor-pointer font-semibold">For 5 Days</span>
+              <button
+                style={{borderBottom: !daysFive ? "2px solid #fff" : "none"}}
+                onClick={() => setDaysFive(false)}
+                className="text-[14px] sm:text-[17px]  cursor-pointer font-semibold"
+              >
+                For 24 Hours
+              </button>
+              <button
+              style={{borderBottom: daysFive ? "2px solid #fff" : "none"}}
+                onClick={() => setDaysFive(true)}
+                className="text-[14px] sm:text-[17px]  cursor-pointer font-semibold"
+              >
+                For 5 Days
+              </button>
             </div>
           </div>
-          <CarouselComp locationData={locationData && locationData?.forecast?.forecastday} />
+          <CarouselComp locationData={locationData?.forecast?.forecastday} />
         </div>
       </section>
     </>

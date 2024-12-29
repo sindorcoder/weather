@@ -5,14 +5,62 @@ import bgWeather from "../images/bg-weather.png";
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Sahifaning belgilash kodi -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+
+    <!-- Sahifani responsiv qilish -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Weather</title>
+
+    <!-- SEO uchun meta ma'lumotlar -->
+    <title>Weather - Accurate Weather Forecasts</title>
+    <meta
+      name="description"
+      content="Get accurate and up-to-date weather forecasts for any location. See hourly and weekly updates with detailed weather conditions."
+    />
+    <meta
+      name="keywords"
+      content="weather, weather forecast, accurate weather, hourly updates, weekly forecast"
+    />
+    <meta name="author" content="Your Name or Brand" />
+
+    <!-- Ochiq grafik (Open Graph) ma'lumotlari -->
+    <meta property="og:title" content="Weather - Accurate Weather Forecasts" />
+    <meta
+      property="og:description"
+      content="Get accurate and up-to-date weather forecasts for any location. See hourly and weekly updates with detailed weather conditions."
+    />
+    <meta property="og:image" content="/images/weather-preview.png" />
+    <meta property="og:url" content="https://weathers-uz.vercel.app/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Cards uchun meta-teglar -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Weather - Accurate Weather Forecasts" />
+    <meta
+      name="twitter:description"
+      content="Get accurate and up-to-date weather forecasts for any location. See hourly and weekly updates with detailed weather conditions."
+    />
+    <meta name="twitter:image" content="/images/weather-preview.png" />
+
+    <!-- Sahifa generatori haqida ma'lumot -->
+    <meta name="generator" content="Astro 2.0" />
+
+    <!-- Schema.org ma'lumotlari (JSON-LD formatida) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Weather - Accurate Weather Forecasts",
+        "description": "Get accurate and up-to-date weather forecasts for any location. See hourly and weekly updates with detailed weather conditions.",
+        "url": "https://weathers-uz.vercel.app/"
+      }
+    </script>
   </head>
   <body
-    style={`background-image: url(${bgWeather.src}); background-size: cover; backround-repeat: no-repeat;`}
+    style={`background-image: url(${bgWeather.src}); background-size: cover; background-repeat: no-repeat;`}
   >
     <slot />
   </body>
