@@ -29,6 +29,7 @@ const App = () => {
           setTheme={setTheme}
           day={day}
           setDay={setDay}
+          theme={theme}
         />
       </main>
     </div>

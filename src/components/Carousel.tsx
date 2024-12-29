@@ -6,7 +6,6 @@ const CarouselComp = ({ locationData }: any) => {
   return (
     <div className="relative">
       <Swiper
-        spaceBetween={30}
         breakpoints={{
           320: {
             slidesPerView: 1,
@@ -30,7 +29,6 @@ const CarouselComp = ({ locationData }: any) => {
         {locationData?.length < 5
           ? locationData &&
             locationData[0].hour?.map((day: any, index: number) => (
-
               <SwiperSlide key={index}>
                 <div className="w-full p-2 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white rounded-lg">
                   <div className="flex justify-center items-center gap-4">
@@ -52,7 +50,6 @@ const CarouselComp = ({ locationData }: any) => {
             ))
           : locationData &&
             locationData.map((day: any, index: number) => (
-
               <SwiperSlide key={index}>
                 <div className="w-full p-2 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white rounded-lg">
                   <div className="flex justify-center items-center gap-1 sm:gap-2">

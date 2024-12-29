@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Droplets } from "lucide-react";
 import CarouselComp from "./Carousel";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 const Main = ({
   setText,
   data,
@@ -20,6 +20,7 @@ const Main = ({
   locationData,
   setDay,
   day,
+  theme,
 }: {
   setText: React.Dispatch<React.SetStateAction<string>>;
   data: any;
@@ -27,6 +28,7 @@ const Main = ({
   setTheme: React.Dispatch<React.SetStateAction<string>>;
   setDay: React.Dispatch<React.SetStateAction<number>>;
   day: number;
+  theme: string;
 }) => {
   const [daysFive, setDaysFive] = React.useState(false);
   const handleSubmit = (value: any) => {
@@ -75,20 +77,43 @@ const Main = ({
               </label>
             </div>
             <div className="flex items-center justify-between  w-full max-w-[120px] h-[45px] bg-gray-800 rounded-lg overflow-hidden">
-              <button className="w-[50%] border-none outline-none h-full cursor-pointer flex items-center justify-center">
-                <SunIcon size={30} color="white" />
-              </button>
+              <div
+                className="flex items-center justify-center w-[50%] h-full"
+                style={{
+                  width: theme === "light" ? "55%" : "50%",
+                  boxShadow:
+                    theme === "light" ? "0 0 10px 0 rgba(1, 1, 1, 1)" : "none",
+                }}
+              >
+                <button
+                  onClick={() => setTheme("light")}
+                  className="w-[50%] border-none outline-none h-full cursor-pointer flex items-center justify-center"
+                >
+                  <SunIcon size={30} color="white" />
+                </button>
+              </div>
               <div className="h-full w-[2px] bg-gray-950"></div>
-              <button className="w-[50%] h-full outline-none border-none flex cursor-pointer items-center justify-center ">
-                <MoonIcon size={30} color="white" />
-              </button>
+              <div
+                className="w-[50%] h-full flex items-center justify-center"
+                style={{
+                  width: theme === "night" ? "55%" : "50%",
+                  boxShadow:
+                    theme === "night" ? "0 0 10px 0 rgba(1, 1, 1, 1)" : "none",
+                }}
+              >
+                <button
+                  onClick={() => setTheme("night")}
+                  className="h-full outline-none border-none flex cursor-pointer items-center justify-center "
+                >
+                  <MoonIcon size={30} color="white" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center md:items-start md:flex-row mt-[30px] justify-between">
           <div className="flex flex-col w-[50%] items-center">
-
             <span className="text-[45px] text-black -tracking-tighter">
               {(data && data.location?.name) || "Address Not Found!"}
             </span>
@@ -160,17 +185,19 @@ const Main = ({
 
         <div className="my-[50px]">
           <div className="flex mb-[25px] items-center gap-4">
-            <span className="text-[16px] sm:text-[30px] capitalize font-bold">Forecast :</span>
+            <span className="text-[16px] sm:text-[30px] capitalize font-bold">
+              Forecast :
+            </span>
             <div className="flex items-center gap-5">
               <button
-                style={{borderBottom: !daysFive ? "2px solid #fff" : "none"}}
+                style={{ borderBottom: !daysFive ? "2px solid #fff" : "none" }}
                 onClick={() => setDaysFive(false)}
                 className="text-[14px] sm:text-[17px]  cursor-pointer font-semibold"
               >
                 For 24 Hours
               </button>
               <button
-              style={{borderBottom: daysFive ? "2px solid #fff" : "none"}}
+                style={{ borderBottom: daysFive ? "2px solid #fff" : "none" }}
                 onClick={() => setDaysFive(true)}
                 className="text-[14px] sm:text-[17px]  cursor-pointer font-semibold"
               >
