@@ -13,6 +13,8 @@ import {
 import { Droplets } from "lucide-react";
 import CarouselComp from "./Carousel";
 import React, { useEffect } from "react";
+import { SkeletonCard } from "./SkeletonCard";
+import { Skeleton } from "./ui/skeleton";
 const Main = ({
   setText,
   data,
@@ -53,13 +55,17 @@ const Main = ({
     <>
       <section className="w-full mt-[20px] rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white">
         <div className="flex items-center justify-between">
-          <img
-            src={logo.src}
-            width="90"
-            loading="lazy"
-            height="90"
-            alt="Site logo"
-          />
+          {logo ? (
+            <img
+              src={logo.src}
+              width="90"
+              loading="lazy"
+              height="90"
+              alt="Site logo"
+            />
+          ) : (
+            <Skeleton className="h-12 w-12" />
+          )}
           <div className="flex items-center w-full justify-end gap-10">
             <div className="flex items-center justify-between bg-transparent  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] md:bg-gray-800 ">
               <input
@@ -113,74 +119,86 @@ const Main = ({
         </div>
 
         <div className="flex flex-col items-center md:items-start md:flex-row mt-[30px] justify-between">
-          <div className="flex flex-col w-[50%] items-center">
+          <div className="flex flex-col w-[50%] gap-3 items-center">
             <span className="text-[45px] text-black -tracking-tighter">
-              {(data && data.location?.name) || "Address Not Found!"}
+              {(data && data.location?.name) || (
+                <Skeleton className="h-8 w-40" />
+              )}
             </span>
             <span className="text-[18px] leading-8">
-              {(data && data.location?.localtime.split(" ")[0]) ||
-                "Address Not Found!"}
+              {(data && data.location?.localtime.split(" ")[0]) || (
+                <Skeleton className="h-4 w-20" />
+              )}
             </span>
             <span className="text-[22px] leading-10">
-              {(data && data.location?.localtime.split(" ")[1]) ||
-                "Address Not Found!"}
+              {(data && data.location?.localtime.split(" ")[1]) || (
+                <Skeleton className="h-4 w-30" />
+              )}
             </span>
             <span className="text-[70px] my-[34px] tracking-widest">
-              {(data && data.current?.temp_c + "°") || "Address Not Found!"}
+              {(data && data.current?.temp_c + "°") || (
+                <Skeleton className="h-12 w-60" />
+              )}
             </span>
             <span className="flex items-center text-[24px] tracking-wider gap-5">
-              <img
-                loading="lazy"
-                src={data && data.current?.condition.icon}
-                alt="icon weather"
-              />
-              {(data && data.current?.condition.text) || "Address Not Found!"}
+              {data && data.current?.condition.icon ? (
+                <img
+                  loading="lazy"
+                  src={data && data.current?.condition.icon}
+                  alt="icon weather"
+                />
+              ) : (
+                <Skeleton className="h-8 w-8" />
+              )}
+              {(data && data.current?.condition.text) || (
+                <Skeleton className="h-4 w-20" />
+              )}
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-full md:w-[50%]">
-            <Card
-              data={
-                (data && data.current?.humidity + "%") || "Address Not Found!"
-              }
-              title={"Humidity"}
-              icon={<Droplets size={50} />}
-            />
-            <Card
-              title={"Pressure"}
-              data={(data && data.current?.pressure_mb) || "Address Not Found!"}
-              icon={<Gauge size={50} />}
-            />
-            <Card
-              title={"Gust"}
-              data={
-                (data && data.current?.gust_kph + " kph") ||
-                "Address Not Found!"
-              }
-              icon={<WindArrowDown size={50} />}
-            />
-            <Card
-              title={"Vis"}
-              data={
-                (data && data.current?.vis_km + " km") || "Address Not Found!"
-              }
-              icon={<Eye size={50} />}
-            />
-            <Card
-              title={"Precip"}
-              data={
-                (data && data.current?.precip_in + "%") || "Address Not Found!"
-              }
-              icon={<CloudRainWind size={50} />}
-            />
-            <Card
-              title={"Dew"}
-              data={
-                (data && data.current?.dewpoint_c + " %") ||
-                "Address Not Found!"
-              }
-              icon={<Leaf size={50} />}
-            />
-          </div>
+          {data ? (
+
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-full md:w-[50%]">
+
+              <Card
+                data={data && data.current?.humidity + "%"}
+                title={"Humidity"}
+                icon={<Droplets size={50} />}
+              />
+              <Card
+                title={"Pressure"}
+                data={data && data.current?.pressure_mb}
+                icon={<Gauge size={50} />}
+              />
+              <Card
+                title={"Gust"}
+                data={data && data.current?.gust_kph + " kph"}
+                icon={<WindArrowDown size={50} />}
+              />
+              <Card
+                title={"Vis"}
+                data={data && data.current?.vis_km + " km"}
+                icon={<Eye size={50} />}
+              />
+              <Card
+                title={"Precip"}
+                data={data && data.current?.precip_in + "%"}
+                icon={<CloudRainWind size={50} />}
+              />
+              <Card
+                title={"Dew"}
+                data={data && data.current?.dewpoint_c + " %"}
+                icon={<Leaf size={50} />}
+              />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-full md:w-[50%]">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index}>
+                  <SkeletonCard />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="my-[50px]">

@@ -1,6 +1,6 @@
-const Card = ({ data, title, icon }: any) => {
-  console.log(data.toString().split(" ")[0]);
+import { SkeletonCard } from "./SkeletonCard";
 
+const Card = ({ data, title, icon }: any) => {
   return (
     <div className="w-full text-center flex flex-col gap-2 p-4 rounded-xl overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white">
       <h1 className="text-[34px]">{title}</h1>

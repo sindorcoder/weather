@@ -8,6 +8,7 @@ const App = () => {
   const [day, setDay] = useState<number>(1);
   const [locationData, setLocationData] = useState<any>(null);
   const [theme, setTheme] = useState("light");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const title = localStorage.getItem("location") || "London";
@@ -15,8 +16,14 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    fetchData(text).then((data) => setData(data));
-    fetchLocation(text, day).then((data) => setLocationData(data));
+    setLoading(true);
+    Promise.all([fetchData(text), fetchLocation(text, day)]).then(
+      ([data, locationData]) => {
+        setData(data);
+        setLocationData(locationData);
+        setLoading(false);
+      }
+    );
   }, [text, day]);
 
   return (
@@ -35,5 +42,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;

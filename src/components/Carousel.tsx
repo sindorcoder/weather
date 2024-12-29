@@ -2,10 +2,13 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import "../style/index.css";
+import { SkeletonCard } from "./SkeletonCard";
+import { Skeleton } from "./ui/skeleton";
 const CarouselComp = ({ locationData }: any) => {
   return (
     <div className="relative">
       <Swiper
+        spaceBetween={20}
         breakpoints={{
           320: {
             slidesPerView: 1,
@@ -26,8 +29,8 @@ const CarouselComp = ({ locationData }: any) => {
         modules={[Navigation]}
         navigation={true}
       >
-        {locationData?.length < 5
-          ? locationData &&
+        {locationData ? (
+          locationData.length < 5 ? (
             locationData[0].hour?.map((day: any, index: number) => (
               <SwiperSlide key={index}>
                 <div className="w-full p-2 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white rounded-lg">
@@ -48,7 +51,7 @@ const CarouselComp = ({ locationData }: any) => {
                 </div>
               </SwiperSlide>
             ))
-          : locationData &&
+          ) : (
             locationData.map((day: any, index: number) => (
               <SwiperSlide key={index}>
                 <div className="w-full p-2 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white rounded-lg">
@@ -75,7 +78,21 @@ const CarouselComp = ({ locationData }: any) => {
                   </div>
                 </div>
               </SwiperSlide>
+            ))
+          )
+        ) : (
+          <div className="flex gap-[10px] items-center justify-center">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Skeleton className="h-[60px] w-[200px] rounded-lg">
+                <div className=" flex items-center justify-between gap-2 p-2">
+                  <Skeleton className="h-[30px] w-[60px]" />
+                  <Skeleton className="h-[45px] w-[45px] rounded-full" />
+                  <Skeleton className="h-[30px] w-[30px]" />
+                </div>
+              </Skeleton>
             ))}
+          </div>
+        )}
       </Swiper>
     </div>
   );
