@@ -33,7 +33,7 @@ const CarouselComp = ({ locationData, theme }: any) => {
             locationData[0].hour?.map((day: any, index: number) => (
               <SwiperSlide key={index}>
                 <div
-                  className={`w-full p-2 backdrop-blur-lg -webkit-backdrop-blur-lg  ${
+                  className={`w-full p-2 backdrop-blur-lg --webkit-backdrop-blur-lg  ${
                     theme === "night" ? "bg-black/20" : "bg-white/20"
                   } rounded-lg`}
                 >
@@ -58,7 +58,7 @@ const CarouselComp = ({ locationData, theme }: any) => {
             locationData.map((day: any, index: number) => (
               <SwiperSlide key={index}>
                 <div
-                  className={`w-full p-2 backdrop-blur-lg  -webkit-backdrop-blur-lg
+                  className={`w-full p-2 backdrop-blur-lg backdrop-filter 
                    ${
                      theme === "night" ? "bg-black/20" : "bg-white/20"
                    } rounded-lg`}

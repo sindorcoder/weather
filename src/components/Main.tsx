@@ -87,8 +87,8 @@ const Main = ({
                   (e.target as HTMLElement).id !== "searchs" &&
                   setSearchBar(false)
                 }
-                style={{ display: searchBar ? "block" : "none" }}
-                className="fixed top-0 -left-4 rounded-2xl h-full overflow-hidden w-full backdrop-filter backdrop-blur-3xl bg-opacity-50 z-10 bg-zinc-400"
+                style={{ width: searchBar ? "100%" : "none" , height: searchBar ? "100%" : "none", transform: `translateY(${searchBar ? "0" : "-150%"})` }}
+                className={`fixed top-0 -left-4 rounded-2xl overflow-hidden w-full h-full duration-700 ease-in-out ${ "backdrop-filter backdrop-blur-3xl bg-opacity-50 z-10 bg-zinc-400"}`}
               >
                 <div className="flex gap-2 bg-gray-800 h-[60px]">
                   <input
@@ -108,6 +108,7 @@ const Main = ({
               </div>
             </div>
             <div
+
               style={{ backgroundColor: theme === "night" ? "" : white }}
               className="sm:flex items-center justify-between hidden  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] bg-gray-800 "
             >
