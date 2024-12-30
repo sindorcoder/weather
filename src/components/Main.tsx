@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react";
 import { SkeletonCard } from "./SkeletonCard";
 import { Skeleton } from "./ui/skeleton";
 
-const  white = "#343a40"
+const white = "#ced4da";
 const Main = ({
   setText,
   data,
@@ -57,7 +57,14 @@ const Main = ({
 
   return (
     <>
-      <section className="w-full mt-[20px] rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white">
+      <section
+        style={{
+          color: theme === "night" ? "#999" : "white",
+        }}
+        className={`w-full mt-[20px] rounded-2xl p-4 backdrop-filter backdrop-blur-lg ${
+          theme === "night" ? "bg-opacity-50" : "bg-opacity-10"
+        } ${theme === "night" ? "bg-black" : "bg-white"}`}
+      >
         <div className="flex items-center gap-5 justify-between">
           {logo ? (
             <img
@@ -100,19 +107,23 @@ const Main = ({
                 </div>
               </div>
             </div>
-            <div className=" sm:flex items-center justify-between hidden  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] bg-gray-800 ">
+            <div
+              style={{ backgroundColor: theme === "night" ? "" : white }}
+              className="sm:flex items-center justify-between hidden  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] bg-gray-800 "
+            >
               <input
-                className="bg-transparent outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
+                className="bg-transparent outline-none border-none !border-transparent capitalize px-4 w-full py-2"
                 type="text"
                 id="search"
                 placeholder="Search City for Weather"
                 onKeyDown={(e: any) => handleSubmit(e)}
               />
               <label
+                style={{ backgroundColor: theme === "night" ? "" : "#5c677d" }}
                 htmlFor="search"
                 className="bg-gray-900 flex items-center justify-center w-[60px] !m-0 h-[45px] cursor-pointer"
               >
-                <Search size={"80%"} color="white" />
+                <Search size={"80%"} />
               </label>
             </div>
             <div
@@ -133,7 +144,7 @@ const Main = ({
                   onClick={() => setTheme("light")}
                   className="w-[50%] border-none outline-none h-full cursor-pointer flex items-center justify-center"
                 >
-                  <SunIcon size={30} color="white" />
+                  <SunIcon color="black" />
                 </button>
               </div>
               <div className="h-full w-[2px] bg-gray-950"></div>
@@ -142,14 +153,16 @@ const Main = ({
                 style={{
                   width: theme === "night" ? "55%" : "50%",
                   boxShadow:
-                    theme === "night" ? "0 0 10px 0 rgba(1, 1, 1, 1)" : "none",
+                    theme === "night"
+                      ? "0 0 10px 2px rgba(1, 1, 1, 1)"
+                      : "none",
                 }}
               >
                 <button
                   onClick={() => setTheme("night")}
                   className="h-full outline-none border-none flex cursor-pointer items-center justify-center "
                 >
-                  <MoonIcon size={30} color="white" />
+                  <MoonIcon color="black" />
                 </button>
               </div>
             </div>
@@ -158,7 +171,7 @@ const Main = ({
 
         <div className="flex flex-col items-center md:items-start md:flex-row mt-[30px] justify-between">
           <div className="flex flex-col sm:w-[50%] w-full gap-3 items-center">
-            <span className="text-[45px] text-black -tracking-tighter">
+            <span className="text-[45px] -tracking-tighter">
               {(data && data.location?.name) || (
                 <Skeleton className="h-8 w-40" />
               )}
@@ -199,31 +212,37 @@ const Main = ({
                 data={data && data.current?.humidity + "%"}
                 title={"Humidity"}
                 icon={<Droplets size={30} />}
+                theme={theme}
               />
               <Card
                 title={"Pressure"}
                 data={data && data.current?.pressure_mb}
                 icon={<Gauge size={30} />}
+                theme={theme}
               />
               <Card
                 title={"Gust"}
                 data={data && data.current?.gust_kph + " kph"}
                 icon={<WindArrowDown size={30} />}
+                theme={theme}
               />
               <Card
                 title={"Vis"}
                 data={data && data.current?.vis_km + " km"}
                 icon={<Eye size={30} />}
+                theme={theme}
               />
               <Card
                 title={"Precip"}
                 data={data && data.current?.precip_in + "%"}
                 icon={<CloudRainWind size={30} />}
+                theme={theme}
               />
               <Card
                 title={"Dew"}
                 data={data && data.current?.dewpoint_c + " %"}
                 icon={<Leaf size={30} />}
+                theme={theme}
               />
             </div>
           ) : (
@@ -259,7 +278,10 @@ const Main = ({
               </button>
             </div>
           </div>
-          <CarouselComp locationData={locationData?.forecast?.forecastday} />
+          <CarouselComp
+            theme={theme}
+            locationData={locationData?.forecast?.forecastday}
+          />
         </div>
       </section>
     </>

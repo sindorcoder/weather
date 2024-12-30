@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import "../style/index.css";
 import { Skeleton } from "./ui/skeleton";
-const CarouselComp = ({ locationData }: any) => {
+const CarouselComp = ({ locationData, theme }: any) => {
   return (
     <div className="relative">
       <Swiper
@@ -32,7 +32,11 @@ const CarouselComp = ({ locationData }: any) => {
           locationData.length < 5 ? (
             locationData[0].hour?.map((day: any, index: number) => (
               <SwiperSlide key={index}>
-                <div className="w-full p-2 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white rounded-lg">
+                <div
+                  className={`w-full p-2 backdrop-filter backdrop-blur-lg ${
+                    theme === "night" ? "bg-opacity-50" : "bg-opacity-10"
+                  } ${theme === "night" ? "bg-black" : "bg-white"} rounded-lg`}
+                >
                   <div className="flex justify-center items-center gap-4">
                     <span className="text-[14px] sm:text-[20px] font-bold">
                       {day.time.split(" ")[1]}
@@ -53,7 +57,11 @@ const CarouselComp = ({ locationData }: any) => {
           ) : (
             locationData.map((day: any, index: number) => (
               <SwiperSlide key={index}>
-                <div className="w-full p-2 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white rounded-lg">
+                <div
+                  className={`w-full p-2 backdrop-filter backdrop-blur-lg ${
+                    theme === "night" ? "bg-opacity-50" : "bg-opacity-10"
+                  } ${theme === "night" ? "bg-black" : "bg-white"} rounded-lg`}
+                >
                   <div className="flex justify-center items-center gap-1 sm:gap-2">
                     <span className="text-[12px] text-nowrap sm:text-wrap sm:text-[17px] font-semibold">
                       {day.date.split("-").reverse().join(" ")}
