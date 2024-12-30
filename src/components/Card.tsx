@@ -2,7 +2,7 @@ const Card = ({ data, title, icon, theme }: any) => {
   return (
     <div
       className={`w-full text-center flex flex-col gap-2 p-4 rounded-xl overflow-hidden  ${
-        theme === "night" ? "bg-black" : "bg-white/30"
+        theme === "night" ? "bg-black/20" : "bg-white/20"
       } backdrop-blur-lg -webkit-backdrop-blur-lg`}
     >
       <h1 className="text-[20px] sm:text-[34px]">{title}</h1>

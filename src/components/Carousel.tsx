@@ -34,7 +34,7 @@ const CarouselComp = ({ locationData, theme }: any) => {
               <SwiperSlide key={index}>
                 <div
                   className={`w-full p-2 backdrop-blur-lg -webkit-backdrop-blur-lg  ${
-                    theme === "night" ? "bg-black" : "bg-white/30"
+                    theme === "night" ? "bg-black/20" : "bg-white/20"
                   } rounded-lg`}
                 >
                   <div className="flex justify-center items-center gap-4">
@@ -60,7 +60,7 @@ const CarouselComp = ({ locationData, theme }: any) => {
                 <div
                   className={`w-full p-2 backdrop-blur-lg  -webkit-backdrop-blur-lg
                    ${
-                     theme === "night" ? "bg-black" : "bg-white/30"
+                     theme === "night" ? "bg-black/20" : "bg-white/20"
                    } rounded-lg`}
                 >
                   <div className="flex justify-center items-center gap-1 sm:gap-2">
