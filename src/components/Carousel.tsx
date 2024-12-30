@@ -33,9 +33,9 @@ const CarouselComp = ({ locationData, theme }: any) => {
             locationData[0].hour?.map((day: any, index: number) => (
               <SwiperSlide key={index}>
                 <div
-                  className={`w-full p-2 backdrop-filter backdrop-blur-lg ${
-                    theme === "night" ? "bg-opacity-50" : "bg-opacity-10"
-                  } ${theme === "night" ? "bg-black" : "bg-white"} rounded-lg`}
+                  className={`w-full p-2 backdrop-blur-lg  ${
+                    theme === "night" ? "bg-black" : "bg-white/30"
+                  } rounded-lg`}
                 >
                   <div className="flex justify-center items-center gap-4">
                     <span className="text-[14px] sm:text-[20px] font-bold">
@@ -58,9 +58,10 @@ const CarouselComp = ({ locationData, theme }: any) => {
             locationData.map((day: any, index: number) => (
               <SwiperSlide key={index}>
                 <div
-                  className={`w-full p-2 backdrop-filter backdrop-blur-lg ${
-                    theme === "night" ? "bg-opacity-50" : "bg-opacity-10"
-                  } ${theme === "night" ? "bg-black" : "bg-white"} rounded-lg`}
+                  className={`w-full p-2 backdrop-blur-lg 
+                   ${
+                     theme === "night" ? "bg-black" : "bg-white/30"
+                   } rounded-lg`}
                 >
                   <div className="flex justify-center items-center gap-1 sm:gap-2">
                     <span className="text-[12px] text-nowrap sm:text-wrap sm:text-[17px] font-semibold">
