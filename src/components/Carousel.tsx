@@ -2,7 +2,6 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import "../style/index.css";
-import { SkeletonCard } from "./SkeletonCard";
 import { Skeleton } from "./ui/skeleton";
 const CarouselComp = ({ locationData }: any) => {
   return (
@@ -83,7 +82,7 @@ const CarouselComp = ({ locationData }: any) => {
         ) : (
           <div className="flex gap-[10px] items-center justify-center">
             {Array.from({ length: 5 }).map((_, index) => (
-              <Skeleton className="h-[60px] w-[200px] rounded-lg">
+              <Skeleton key={index} className="h-[60px] w-[200px] rounded-lg">
                 <div className=" flex items-center justify-between gap-2 p-2">
                   <Skeleton className="h-[30px] w-[60px]" />
                   <Skeleton className="h-[45px] w-[45px] rounded-full" />

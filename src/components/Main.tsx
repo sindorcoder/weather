@@ -12,9 +12,11 @@ import {
 } from "lucide-react";
 import { Droplets } from "lucide-react";
 import CarouselComp from "./Carousel";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SkeletonCard } from "./SkeletonCard";
 import { Skeleton } from "./ui/skeleton";
+
+const  white = "#343a40"
 const Main = ({
   setText,
   data,
@@ -33,6 +35,7 @@ const Main = ({
   theme: string;
 }) => {
   const [daysFive, setDaysFive] = React.useState(false);
+  const [searchBar, setSearchBar] = useState(false);
   const handleSubmit = (value: any) => {
     if (value._reactName === "onKeyDown" && value.key === "Enter") {
       setText(value.target.value);
@@ -40,6 +43,7 @@ const Main = ({
     }
     if (value._reactName === "onKeyDown" && value.key === "Enter") {
       value.target.value = "";
+      setSearchBar(false);
     }
   };
 
@@ -54,7 +58,7 @@ const Main = ({
   return (
     <>
       <section className="w-full mt-[20px] rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-opacity-10 bg-white">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-5 justify-between">
           {logo ? (
             <img
               src={logo.src}
@@ -67,9 +71,38 @@ const Main = ({
             <Skeleton className="h-12 w-12" />
           )}
           <div className="flex items-center w-full justify-end gap-10">
-            <div className="flex items-center justify-between bg-transparent  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] md:bg-gray-800 ">
+            <div className="flex items-center w-[40%]  justify-between gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] sm:hidden">
+              <button onClick={() => setSearchBar(true)}>
+                <Search size={30} />
+              </button>
+              <div
+                onClick={(e) =>
+                  (e.target as HTMLElement).id !== "searchs" &&
+                  setSearchBar(false)
+                }
+                style={{ display: searchBar ? "block" : "none" }}
+                className="fixed top-0 -left-4 rounded-2xl h-full overflow-hidden w-full backdrop-filter backdrop-blur-3xl bg-opacity-50 z-10 bg-zinc-400"
+              >
+                <div className="flex gap-2 bg-gray-800 h-[60px]">
+                  <input
+                    className="bg-transparent outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
+                    type="text"
+                    id="searchs"
+                    placeholder="Search City for Weather"
+                    onKeyDown={(e: any) => handleSubmit(e)}
+                  />
+                  <label
+                    htmlFor="searchs"
+                    className="bg-gray-900 flex items-center justify-center w-[100px] !m-0 h-full cursor-pointer"
+                  >
+                    <Search size={"80%"} color="white" />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className=" sm:flex items-center justify-between hidden  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] bg-gray-800 ">
               <input
-                className="bg-transparent hidden md:block outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
+                className="bg-transparent outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
                 type="text"
                 id="search"
                 placeholder="Search City for Weather"
@@ -77,12 +110,17 @@ const Main = ({
               />
               <label
                 htmlFor="search"
-                className="md:bg-gray-900 flex items-center justify-center w-full  md:w-[60px] !m-0 h-[45px] cursor-pointer"
+                className="bg-gray-900 flex items-center justify-center w-[60px] !m-0 h-[45px] cursor-pointer"
               >
                 <Search size={"80%"} color="white" />
               </label>
             </div>
-            <div className="flex items-center justify-between  w-full max-w-[120px] h-[45px] bg-gray-800 rounded-lg overflow-hidden">
+            <div
+              style={{
+                backgroundColor: theme === "night" ? "#1f2937" : white,
+              }}
+              className="flex items-center justify-between  w-full max-w-[120px] h-[45px] rounded-lg overflow-hidden"
+            >
               <div
                 className="flex items-center justify-center w-[50%] h-full"
                 style={{
@@ -119,7 +157,7 @@ const Main = ({
         </div>
 
         <div className="flex flex-col items-center md:items-start md:flex-row mt-[30px] justify-between">
-          <div className="flex flex-col w-[50%] gap-3 items-center">
+          <div className="flex flex-col sm:w-[50%] w-full gap-3 items-center">
             <span className="text-[45px] text-black -tracking-tighter">
               {(data && data.location?.name) || (
                 <Skeleton className="h-8 w-40" />
@@ -140,7 +178,7 @@ const Main = ({
                 <Skeleton className="h-12 w-60" />
               )}
             </span>
-            <span className="flex items-center text-[24px] tracking-wider gap-5">
+            <span className="flex items-center text-[16px]  sm:text-[24px] tracking-wider gap-5">
               {data && data.current?.condition.icon ? (
                 <img
                   loading="lazy"
@@ -156,38 +194,36 @@ const Main = ({
             </span>
           </div>
           {data ? (
-
             <div className="grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-3 mt-4 w-full md:w-[50%]">
-
               <Card
                 data={data && data.current?.humidity + "%"}
                 title={"Humidity"}
-                icon={<Droplets size={50} />}
+                icon={<Droplets size={30} />}
               />
               <Card
                 title={"Pressure"}
                 data={data && data.current?.pressure_mb}
-                icon={<Gauge size={50} />}
+                icon={<Gauge size={30} />}
               />
               <Card
                 title={"Gust"}
                 data={data && data.current?.gust_kph + " kph"}
-                icon={<WindArrowDown size={50} />}
+                icon={<WindArrowDown size={30} />}
               />
               <Card
                 title={"Vis"}
                 data={data && data.current?.vis_km + " km"}
-                icon={<Eye size={50} />}
+                icon={<Eye size={30} />}
               />
               <Card
                 title={"Precip"}
                 data={data && data.current?.precip_in + "%"}
-                icon={<CloudRainWind size={50} />}
+                icon={<CloudRainWind size={30} />}
               />
               <Card
                 title={"Dew"}
                 data={data && data.current?.dewpoint_c + " %"}
-                icon={<Leaf size={50} />}
+                icon={<Leaf size={30} />}
               />
             </div>
           ) : (
