@@ -92,11 +92,8 @@ const Main = ({
                   height: searchBar ? "100%" : "none",
                   transform: `translateY(${searchBar ? "0" : "-150%"})`,
                 }}
-                className={`fixed top-0 -left-4 rounded-2xl overflow-hidden w-full h-full duration-700 ease-in-out ${
-                  window.innerWidth >= 1024
-                    ? "backdrop-filter backdrop-blur-3xl bg-opacity-50 z-10 bg-zinc-600"
-                    : ""
-                }`}
+                className={`fixed top-0  max-lg:backdrop-filter max-lg:backdrop-blur-3xl bg-opacity-50 z-10 bg-zinc-600 -left-4 rounded-2xl overflow-hidden w-full h-full duration-700 ease-in-out   
+                `}
               >
                 <div className="flex gap-2 bg-gray-800 h-[60px]">
                   <input
