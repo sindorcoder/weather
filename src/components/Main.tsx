@@ -261,7 +261,7 @@ const Main = ({
           )}
         </div>
 
-        <div className="my-[50px]">
+        {locationData && <div className="my-[50px]">
           <div className="flex mb-[25px] items-center gap-4">
             <span className="text-[16px] sm:text-[30px] capitalize font-bold">
               Forecast :
@@ -287,7 +287,7 @@ const Main = ({
             theme={theme}
             locationData={locationData?.forecast?.forecastday}
           />
-        </div>
+        </div>}
       </section>
     </>
   );

@@ -14,8 +14,8 @@ const App = () => {
     const title = localStorage.getItem("location") || "London";
     setText(title);
   }, []);
-
   useEffect(() => {
+
     setLoading(true);
     Promise.all([fetchData(text), fetchLocation(text, day)]).then(
       ([data, locationData]) => {
