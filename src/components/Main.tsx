@@ -55,6 +55,8 @@ const Main = ({
     }
   }, [daysFive, day]);
 
+  console.log(locationData);
+
   return (
     <>
       <section
@@ -92,7 +94,9 @@ const Main = ({
                   height: searchBar ? "100%" : "none",
                   transform: `translateY(${searchBar ? "0" : "-150%"})`,
                 }}
-                className={`fixed top-0 ${window.innerWidth > 800 && "backdrop-filter backdrop-blur-3xl" }  bg-opacity-50 z-10 bg-zinc-600 -left-4 rounded-2xl overflow-hidden w-full h-full duration-700 ease-in-out   
+                className={`fixed top-0 ${
+                  window.innerWidth > 800 && "backdrop-filter backdrop-blur-3xl"
+                }  bg-opacity-50 z-10 bg-zinc-600 -left-4 rounded-2xl overflow-hidden w-full h-full duration-700 ease-in-out   
                 `}
               >
                 <div className="flex gap-2 bg-gray-800 h-[70px]">
@@ -261,14 +265,16 @@ const Main = ({
           )}
         </div>
 
-        {locationData && <div className="my-[50px]">
+        <div className="my-[50px]">
           <div className="flex mb-[25px] items-center gap-4">
             <span className="text-[16px] sm:text-[30px] capitalize font-bold">
               Forecast :
             </span>
             <div className="flex items-center gap-5">
               <button
-                style={{ borderBottom: !daysFive ? "2px solid #fff" : "none" }}
+                style={{
+                  borderBottom: !daysFive ? "2px solid #fff" : "none",
+                }}
                 onClick={() => setDaysFive(false)}
                 className="text-[14px] sm:text-[17px]  cursor-pointer font-semibold"
               >
@@ -287,7 +293,7 @@ const Main = ({
             theme={theme}
             locationData={locationData?.forecast?.forecastday}
           />
-        </div>}
+        </div>
       </section>
     </>
   );
