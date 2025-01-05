@@ -94,8 +94,11 @@ const Main = ({
                 }  bg-opacity-50 z-10 bg-zinc-600 -left-4 rounded-2xl overflow-hidden w-full h-full duration-700 ease-in-out   
                 `}
               >
-                <div className="flex gap-2 bg-gray-800 h-[70px]">
-                  <form onSubmit={handleSubmit} className="flex gap-2">
+                <div className="flex gap-2 justify-between bg-gray-800 h-[70px]">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex w-full justify-between items-center gap-2"
+                  >
                     <input
                       ref={inputRef}
                       className="bg-transparent outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
@@ -108,7 +111,7 @@ const Main = ({
                         htmlFor="searchs"
                         className="bg-gray-900 flex items-center justify-center w-[100px] !m-0 h-full cursor-pointer"
                       >
-                        <Search size={"80%"} color="white" />
+                        <Search size={"70%"} color="white" />
                       </label>
                     </button>
                   </form>
@@ -135,7 +138,7 @@ const Main = ({
                       backgroundColor: theme === "night" ? "" : "#5c677d",
                     }}
                     htmlFor="search"
-                    className="bg-gray-900 flex items-center justify-center w-[60px] !m-0 h-[45px] cursor-pointer"
+                    className="bg-gray-900 flex items-center justify-center w-[70px] !m-0 h-[45px] cursor-pointer"
                   >
                     <Search size={"80%"} />
                   </label>
