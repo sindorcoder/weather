@@ -29,7 +29,7 @@ const CarouselComp = ({ locationData, theme }: any) => {
         navigation={true}
       >
         {locationData ? (
-          locationData.length < 5 ? (
+          locationData.hour ? (
             locationData[0].hour?.map((day: any, index: number) => (
               <SwiperSlide key={index}>
                 <div

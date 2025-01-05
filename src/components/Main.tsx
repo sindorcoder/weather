@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Droplets } from "lucide-react";
 import CarouselComp from "./Carousel";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SkeletonCard } from "./SkeletonCard";
 import { Skeleton } from "./ui/skeleton";
 
@@ -36,15 +36,12 @@ const Main = ({
 }) => {
   const [daysFive, setDaysFive] = React.useState(false);
   const [searchBar, setSearchBar] = useState(false);
+  const inputRef = useRef<any>(null);
   const handleSubmit = (value: any) => {
-    if (value._reactName === "onKeyDown" && value.key === "Enter") {
-      setText(value.target.value);
-      localStorage.setItem("location", value.target.value);
-    }
-    if (value._reactName === "onKeyDown" && value.key === "Enter") {
-      value.target.value = "";
-      setSearchBar(false);
-    }
+    value.preventDefault();
+    setText(value.target[0].value);
+    value.target[0].value = "";
+    inputRef.current.blur();
   };
 
   useEffect(() => {
@@ -54,8 +51,6 @@ const Main = ({
       setDay(1);
     }
   }, [daysFive, day]);
-
-  console.log(locationData);
 
   return (
     <>
@@ -100,19 +95,23 @@ const Main = ({
                 `}
               >
                 <div className="flex gap-2 bg-gray-800 h-[70px]">
-                  <input
-                    className="bg-transparent outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
-                    type="text"
-                    id="searchs"
-                    placeholder="Search City for Weather"
-                    onKeyDown={(e: any) => handleSubmit(e)}
-                  />
-                  <label
-                    htmlFor="searchs"
-                    className="bg-gray-900 flex items-center justify-center w-[100px] !m-0 h-full cursor-pointer"
-                  >
-                    <Search size={"80%"} color="white" />
-                  </label>
+                  <form onSubmit={handleSubmit} className="flex gap-2">
+                    <input
+                      ref={inputRef}
+                      className="bg-transparent outline-none border-none !border-transparent capitalize text-white px-4 w-full py-2"
+                      type="text"
+                      id="searchs"
+                      placeholder="Search City for Weather"
+                    />
+                    <button type="submit">
+                      <label
+                        htmlFor="searchs"
+                        className="bg-gray-900 flex items-center justify-center w-[100px] !m-0 h-full cursor-pointer"
+                      >
+                        <Search size={"80%"} color="white" />
+                      </label>
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -120,20 +119,28 @@ const Main = ({
               style={{ backgroundColor: theme === "night" ? "" : white }}
               className="sm:flex items-center justify-between hidden  gap-2 space-x-4 rounded-lg overflow-hidden text-[16px] bg-gray-800 "
             >
-              <input
-                className="bg-transparent outline-none border-none !border-transparent capitalize px-4 w-full py-2"
-                type="text"
-                id="search"
-                placeholder="Search City for Weather"
-                onKeyDown={(e: any) => handleSubmit(e)}
-              />
-              <label
-                style={{ backgroundColor: theme === "night" ? "" : "#5c677d" }}
-                htmlFor="search"
-                className="bg-gray-900 flex items-center justify-center w-[60px] !m-0 h-[45px] cursor-pointer"
+              <form
+                className="flex gap-2 items-center justify-between"
+                onSubmit={handleSubmit}
               >
-                <Search size={"80%"} />
-              </label>
+                <input
+                  className="bg-transparent outline-none border-none !border-transparent capitalize px-4 w-full py-2"
+                  type="text"
+                  id="search"
+                  placeholder="Search City for Weather"
+                />
+                <button type="submit">
+                  <label
+                    style={{
+                      backgroundColor: theme === "night" ? "" : "#5c677d",
+                    }}
+                    htmlFor="search"
+                    className="bg-gray-900 flex items-center justify-center w-[60px] !m-0 h-[45px] cursor-pointer"
+                  >
+                    <Search size={"80%"} />
+                  </label>
+                </button>
+              </form>
             </div>
             <div
               style={{
